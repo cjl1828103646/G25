@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Hello world!</h1>
+<p>请选择目录地址:  <input type="text"><button id=bt1; width:100px; hight:100px;></button></p>
+</body>
+</html>
