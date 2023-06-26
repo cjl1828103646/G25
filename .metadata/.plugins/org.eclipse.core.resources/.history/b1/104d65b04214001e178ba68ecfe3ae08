@@ -1,0 +1,7 @@
+// 选择文件夹
+document.querySelector('#savePath').addEventListener('input', function (event) {
+  for (let file of event.target.files) {
+    console.log(file);
+    // 属性 webkitRelativePath 有值
+  }
+})

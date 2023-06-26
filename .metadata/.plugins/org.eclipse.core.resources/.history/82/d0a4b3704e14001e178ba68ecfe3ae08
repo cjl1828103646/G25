@@ -1,0 +1,43 @@
+
+function browseFolder() {
+		    try {
+		        var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息
+		        var Shell = new ActiveXObject("Shell.Application");
+		        var Folder = Shell.BrowseForFolder(0, Message, 64, 17); //起始目录为：我的电脑
+		        //var Folder = Shell.BrowseForFolder(0, Message, 0); //起始目录为：桌面
+		        if (Folder != null) {
+		            Folder = Folder.items(); // 返回 FolderItems 对象
+		            Folder = Folder.item(); // 返回 Folderitem 对象
+		            Folder = Folder.Path; // 返回路径
+		            if (Folder.charAt(Folder.length - 1) != "\\") {
+		                Folder = Folder + "\\";
+		            }
+		            document.getElementById("savePath").value = Folder;
+		            console.log("File path: " + Folder); 
+
+		            var fso=new ActiveXObject("Scripting.FileSystemObject");//创建文件系统对象
+		            		var s=fso.GetFolder(Folder);//获取文件夹对象
+		            		var fn=new Enumerator(s.files);
+		            		var s="";
+		            		for(;!fn.atEnd();fn.moveNext()){
+		            			s=s+fn.item()+"\n";
+		            		}
+				    var fso=new ActiveXObject("Scripting.FileSystemObject");//创建文件系统对象
+		            		var s=fso.GetFolder(Folder);//获取文件夹对象
+		            		var fn=new Enumerator(s.SubFolders);
+		            		for(;!fn.atEnd();fn.moveNext()){
+		            			var s1=fso.GetFolder(fn.item);//获取文件夹对象
+			            		var fn1=new Enumerator(s1.files);
+			            		for(;!fn.atEnd();fn.moveNext()){
+			            			s=s+fn.item()+"\n";
+			            		}
+		            		}		
+		            		alert(s);
+		      
+		            return Folder;
+		        }
+		    }
+		    catch (e) {
+		        alert(e.message);
+		    }
+		}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Hello world!</h1>
+<p>请选择目录地址:  <input type="file" id="file_input" @change="triggerFile($event)" webkitdirectory directory /></p> 
+<script src="src/index.js"></script>
+<script src="src/src/jquery.min.js"></script>
+</body>
+</html>

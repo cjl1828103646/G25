@@ -1,0 +1,4 @@
+triggerFile(event) {
+      let file = event.target.files;
+      console.log(file);
+    },

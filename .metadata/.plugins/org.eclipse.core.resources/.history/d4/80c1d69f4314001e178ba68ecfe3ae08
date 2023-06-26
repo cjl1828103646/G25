@@ -1,0 +1,8 @@
+// 选择文件夹
+document.querySelector('#savePath').addEventListener('compositionstart', function () {
+  var path = document.getElementById('savePath').value; 
+  for (let file of path) {
+    console.log(file);
+    // 属性 webkitRelativePath 有值
+  }
+})

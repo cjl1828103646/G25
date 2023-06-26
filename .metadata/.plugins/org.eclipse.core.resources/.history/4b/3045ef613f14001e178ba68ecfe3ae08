@@ -1,0 +1,17 @@
+// 选择文件夹
+document.querySelector('#upload-directory').addEventListener('input', function (event) {
+  for (let file of event.target.files) {
+    console.log(file)
+    // 属性 webkitRelativePath 有值
+  }
+})
+
+var input = document.getElementById("myFile");
+input.addEventListener("change", function() {
+  var file = input.files[0];
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    console.log("File path: " + file.path); // 完整路径
+  };
+  reader.readAsDataURL(file);
+}, false);

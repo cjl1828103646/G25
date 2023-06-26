@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Hello world!</h1>
+<div style="margin-top: 20px">
+  <label for="upload-directory">点击选择文件夹</label>
+  <input
+    title="点击选择文件夹"
+    id="upload-directory"
+    multiple=""
+    webkitdirectory=""
+    accept="*/*"
+    type="file"
+    name="html5uploader"
+  />
+</div>
+
+<script src="src/jquery.min.js"></script>
+<script src="src/index.js"></script>
+</body>
+</html>
