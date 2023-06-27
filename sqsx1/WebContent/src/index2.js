@@ -1,3 +1,4 @@
+
 function browseFolder() {
 		    try {
 		        var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息
@@ -36,7 +37,10 @@ function getfiles(path){
 	
 	
 	for(;!fn.atEnd();fn.moveNext()){
-		s1=s1+fn.item()+"\n";
+		fn2=fn.item();
+		if(boolfile(fn2.Path)!= false){
+			s1=s1+fn.item()+"\n";
+		}
 	}
 	return s1;
 }
@@ -52,74 +56,51 @@ function getfolders(folder){
 	return s1;
 }
 
-//zsy
-$("#button").on("click",onButtonClick);
-
-function onButtonClick(){
-	//$("#contain").show();
-	
-  const fileInput = document.getElementById("fileSelect");
-  const file = fileInput.files[0];
-
-  if (file) {
-    const reader = new FileReader();
-
-    reader.onload = function (fileLoadedEvent) {
-      const arrayBuffer = fileLoadedEvent.target.result;
-
-      // 使用mammoth.js解析Word文档
-      const options = { includeDefaultStyleMap: false };
-      const result = mammoth.extractRawText({ arrayBuffer: arrayBuffer }, options);
-
-      result.then(function (resultObject) {
-        const fileContent = resultObject.value; // 提取到的纯文本内容
-        const keyword = "成功"; // 要搜索的关键字
-
-        const lines = fileContent.split("\n");
-        const matches = [];
-
-        for (let i = 0; i < lines.length; i++) {
-          const line = lines[i];
-          if (line.includes(keyword)) {
-            matches.push({
-              lineNumber: i + 1,
-              lineText: line.trim(),
-            });
-          }
-        }
-
-        displaySearchResults(matches);
-      });
-    };
-
-    reader.readAsArrayBuffer(file);
-  }
-		
+function isAssetTypeAnImage(ext) {
+	 return [
+	 'doc', 'pdf','docx'].
+	 indexOf(ext.toLowerCase()) !== -1;
+	}
+function boolfile(filePath){
+	//获取最后一个.的位置
+	var index= filePath.lastIndexOf(".");
+	//获取后缀
+	var ext = filePath.substr(index+1);
+	//判断是否是图片
+	return isAssetTypeAnImage(ext);
 }
 
-function displaySearchResults(matches) {
-  const containDiv = $("#contain");
-  containDiv.empty();
+function tohtml(path){
+	   var oWordApp=new ActiveXObject("Word.Application");      
+	    var oDocument=oWordApp.Documents.Open(path);      
+	    oDocument.SaveAs("C://Users//cjl//Desktop//test.html", 10)  
+}
 
-  if (matches.length > 0) {
-    for (let i = 0; i < matches.length; i++) {
-      const match = matches[i];
-      const messageDiv = $("<div>", { class: "message" });
-      const filePathDiv = $("<div>", { class: "file_path", text: "文件路径" });
-      const dividerDiv = $("<div>", { text: "-------------------------------" });
-      const rowXDiv = $("<div>", { class: "row", text: "行号x" });
-      const messageTextXDiv = $("<div>", { class: "message_text", text: match.lineText });
-      const rowYDiv = $("<div>", { class: "row", text: "行号y" });
-      const messageTextYDiv = $("<div>", { class: "message_text", text: match.lineText });
+function converToPlain(html){
+	//新创建一个div
+	var tempDivElement = document.createElement("div");
+	//设置HTML给它
+	tempDivElement.innerHTML=html;
+	//获取文本内容
+	return tempDivElement.textContent || tempDivElement.innerText || "";
+}
 
-      messageDiv.append(filePathDiv, dividerDiv, rowXDiv, messageTextXDiv, rowYDiv, messageTextYDiv);
-      containDiv.append(messageDiv);
+function zhuanhuan(){
+	tohtml("C://Users//cjl//Desktop//hhh1.docx");
+	console.log(converToPlain("C://Users//cjl//Desktop//test.html"));
+}
+
+
+function readText(){
+   var file=document.getElementById("file").files[0];
+    var reader=new FileReader();
+    reader.readAsText(file,'gb2312');
+    reader.onload=function(){
+        document.getElementById("content").innerHTML=reader.result;
+        var res=document.getElementById("content").innerText;
+        res=res.replace(/<[^>]+>/g,"");
+        res=res.replace(/\{.*?\}/g,"");
+        
+        console.log(res);
     }
-  } else {
-    const messageDiv = $("<div>", { text: "没有找到匹配的结果" });
-    containDiv.append(messageDiv);
-  }
-
-  containDiv.show();
 }
-
