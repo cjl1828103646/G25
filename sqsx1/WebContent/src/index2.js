@@ -42,6 +42,12 @@ function getfiles(path){
 			s1=s1+fn.item()+"\n";
 		}
 	}
+	      var   fso=new   ActiveXObject("Scripting.FileSystemObject"); 
+	      var   f=fso.CreateTextFile("C://Users//cjl//Desktop//text.txt",true); //可随意选择后缀名
+	      f.write(s1); 
+
+	      f.Close();
+
 	return s1;
 }
 
