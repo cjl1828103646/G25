@@ -15,32 +15,13 @@
 	    	<td><input type=button value="选择" onclick="browseFolder()"></td>
 	  	</tr>
 	</table>
-
-<div id="search">
-		<input id="keySelect" type="text"  />
-		<button id="button" type="button">search</button>
-	</div>
 	
-	<div id="contain">
-		<!--
-		<div class="message">
-			<div class="file_path">文件路径</div>
-			<div>-------------------------------</div>
-			<div class="row">行号x</div>
-			<div class="message_text">包括关键字的内容行</div>
-			<div class="row">行号y</div>
-			<div class="message_text">包括关键字的内容行</div>
-		</div>
-		<div class="message">
-			<div class="file_path">文件路径</div>
-			<div>-------------------------------</div>
-			<div class="row">行号x</div>
-			<div class="message_text">包括关键字的内容行</div>
-			<div class="row">行号y</div>
-			<div class="message_text">包括关键字的内容行</div>
-		</div>	
-		-->	
-	</div>
+<input type=button value="转换" onclick="zhuanhuan()">
+
+ <input type="file" id="file"/>
+    <button onclick="readText()">读取文本</button>
+    <div id="content"></div>
+
 <script src="src/jquery.min.js"></script>
 
 <script src="src/index2.js"></script>
