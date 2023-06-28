@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
+    <head>
+	 	<link rel="stylesheet" href="static/style.css">
+	</head>
 <body>
 <h2>Hello World!啦啦啦111</h2>
 <table>
@@ -11,6 +14,7 @@
 </table>
 
 <input type=button value="转换" onclick="zhuanhuan()">
+
 <div id="checkboxContainer"></div>
 <button id="download">DownLoad</button>
 
