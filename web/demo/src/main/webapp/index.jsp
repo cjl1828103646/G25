@@ -11,6 +11,8 @@
 </table>
 
 <input type=button value="转换" onclick="zhuanhuan()">
+<div id="checkboxContainer"></div>
+<button id="download">DownLoad</button>
 
 <input type="file" id="file"/>
 <button onclick="readText()">读取文本</button>
@@ -18,6 +20,7 @@
 
 <script src="src/page/jquery.min.js"></script>
 <script src="src/page/index.js"></script>
+<script src="src/page/checkbox.js"></script>
 
 </body>
 </html>
