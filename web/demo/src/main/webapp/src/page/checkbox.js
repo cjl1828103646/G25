@@ -36,7 +36,7 @@ function createCheckboxesFromJSON(data) {
     // 遍历每个 JSON 项
     item.json.forEach(function(jsonItem){
       var rowLabel = document.createElement('p');
-      rowLabel.textContent = '\n行号' + jsonItem.row + '  ' + jsonItem.contain;
+      rowLabel.textContent = '行号' + jsonItem.row + '  ' + jsonItem.contain;
       checkboxGroup.appendChild(rowLabel);
     });
 
@@ -68,3 +68,56 @@ var keyword = document.getElementById('key').val;
 searchBtn.addEventListener('click',function(){
 	createCheckboxesFromJSON(jsonData);
 });
+
+
+// 假设你有一个下载按钮元素
+var downloadButton = document.getElementById('download');
+
+// 添加点击事件监听器
+if (downloadButton.addEventListener) {
+  downloadButton.addEventListener('click', handleClick);
+} else if (downloadButton.attachEvent) {
+  downloadButton.attachEvent('onclick', handleClick);
+}
+
+// 点击事件处理函数
+function handleClick(event) {
+  var checkboxGroups = document.getElementsByClassName('checkbox-group');
+  var content = '';
+
+  // 遍历每个 checkbox-group
+  for (var i = 0; i < checkboxGroups.length; i++) {
+    var checkboxGroup = checkboxGroups[i];
+    var checkboxes = checkboxGroup.querySelectorAll('input[type="checkbox"]');
+    
+    // 检查 checkbox-group 内的复选框是否被选中
+    var isChecked = false;
+    for (var j = 0; j < checkboxes.length; j++) {
+      var checkbox = checkboxes[j];
+  
+      if (checkbox.checked) {
+        isChecked = true;
+        break; // 退出循环
+      }
+    }
+    
+    // 如果至少有一个复选框被选中，则将 checkbox-group 内容添加到下载内容中
+    if (isChecked) {
+      /*content += checkboxGroup.innerText + '\n';*/
+      content += checkboxGroup.outerHTML + '\n';
+    }
+  }
+  
+  // 调用下载函数，将内容作为文件下载
+  download(content, 'checkbox_group_content.txt');
+}
+
+// 下载函数
+function download(content, filename) {
+  var IEwindow = window.open();
+  IEwindow.document.open('text/plain', 'replace');
+  IEwindow.document.write(content);
+  IEwindow.document.close();
+  IEwindow.document.execCommand('SaveAs', true, filename);
+  IEwindow.close();
+}
