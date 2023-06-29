@@ -18,7 +18,7 @@ function pdfread($pdfPath){
   return  $lines;
 }
   
-$lines= pdfread($pdfPath);
-echo json_encode($lines,JSON_UNESCAPED_UNICODE);
+// $lines= pdfread($pdfPath);
+// echo json_encode($lines,JSON_UNESCAPED_UNICODE);
 
 ?>
