@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+          <td>选择导入数据源：</td>
+          <td><input id="savePath" type="text" name="path" size="30"></td>
+          <td><input type=button value="选择" onclick="browseFolder()"></td>
+        </tr>
+    </table>
+    
+    <div id="menuread">
+        <label>
+            <input type="radio" name="menu" value="C:" checked="checked">C:<br/>
+            <input type="radio" name="menu" value="D:">D:<br/>
+            <input type="radio" name="menu" value="E:">E:<br/>
+            <input type="radio" name="menu" value="F:">F:<br/>
+        </label>
+        </div>
+    
+        <button id="back" onclick="back()">上一级</button>
+        <button id="go" onclick="go()">下一级</button>
+
+    <button id="send-btn" onclick="sendData()">检索</button>
+    
+    <input type="file" id="file"  webkitdirectory directory multiple/>
+    
+    <script src="src/jquery.min.js"></script>
+    <script src="src/index2.js"></script>
+</body>
+</html>
