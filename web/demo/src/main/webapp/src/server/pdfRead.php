@@ -1,9 +1,8 @@
 <?php
-session_start();
 header("content-type:text/json;charset=utf-8");
 
 //测试文件
-$pdfPath="C:/Users/asus/Desktop/xcxc.pdf ";
+$pdfPath="C:/Users/asus/Desktop/test/xcxc.pdf ";
 
 function pdfread($pdfPath){
   $filename=$pdfPath;

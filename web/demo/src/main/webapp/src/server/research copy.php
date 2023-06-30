@@ -1,22 +1,23 @@
 <?php
 header("content-type:text/json;charset=utf-8");
 
-$filename = 'path1.txt';
-if (file_exists($filename)) {
-    $file = fopen($filename, 'r');
-    $pathArray = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($pathArray as $key => $value) {
-        echo "{$key}: {$value}\n";
-    }
-    fclose($file);
-} else {
-    echo '文件不存在';}
+// $filename = 'C:\wamp64\www\web\demo\path1.txt';
+// if (file_exists($filename)) {
+//     $file = fopen($filename, 'r');
+//     $pathArray = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+//     foreach ($pathArray as $key => $value) {
+//         echo "{$key}: {$value}\n";
+//     }
+//     fclose($file);
+// } else {
+//     echo '文件不存在';}
 
-    
+$pathArray=["C:\\test\\test1.txt","C:\\test\\test2.txt","C:\\test\\test2.txt"];
 
     for($i=0;$i<count($pathArray);$i++){
         $contain='';
         $path=$pathArray[$i];
+        
         //读取内容
         $contain = file_get_contents($path);
       
@@ -50,6 +51,9 @@ if (file_exists($filename)) {
         }
     
     }
+
+    
+
     echo json_encode($keyArrray,JSON_UNESCAPED_UNICODE);
 
     

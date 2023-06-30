@@ -1,38 +1,63 @@
 <?php
-header('Content-type:text/html;charset=utf-8');
 
-//测试文件
-$wordPath="C:\\Users\\cjl\\Desktop\\text1.doc";
-function wordread($wordPath){
-    $word = new COM("word.application") or die("Can't start Word!");
-    $word->Visible = 0;
-    $document = $word->Documents->open($wordPath);
-    $content = $document->Content->Text; 
-    $lines = explode("\r", $content);
+require_once 'vendor/autoload.php';
 
-    //echo count($lines); 
-    $docArray=array();
+use PhpOffice\PhpWord\IOFactory;
 
-    foreach ($lines as $line) {
-    //$line=iconv('GB2312','UTF-8',$line);
-    $result=$line . PHP_EOL;
-    $result=iconv('GB2312','UTF-8',$result);
-    $result=trim($result);
-    array_push($docArray,$result);
-    //echo $result."\n";
-  }
-   array_pop($docArray);
-   
+// 要读取的Word文档路径
+$filePath = "C:\\Users\\asus\\Desktop\\test\\asas .docx";
 
-   //echo $content;
-   $document->Close(false);
-   $word->Quit();
-   $word=null;
 
-   return $docArray;
+function wordread($path){
+// 加载Word文档
+$phpWord = IOFactory::load($path);
+
+// 存储文档内容的数组
+$lines = array();
+
+$currentLine = ''; // 当前行的内容
+
+foreach ($phpWord->getSections() as $section) {
+    foreach ($section->getElements() as $element) {
+        if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
+            foreach ($element->getElements() as $textElement) {
+                if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
+                    $text = trim($textElement->getText()); // 去除空格
+                    if (!empty($text)) {
+                        $currentLine .= $text; // 向当前行添加单词
+                    }
+                }
+            }
+        } elseif ($element instanceof \PhpOffice\PhpWord\Element\Text) {
+            $text = trim($element->getText()); // 去除空格
+            if (!empty($text)) {
+                $currentLine .= $text; // 向当前行添加单词
+            }
+        } elseif ($element instanceof \PhpOffice\PhpWord\Element\Table) {
+            foreach ($element->getRows() as $row) {
+                foreach ($row->getCells() as $cell) {
+                    foreach ($cell->getElements() as $cellElement) {
+                        if ($cellElement instanceof \PhpOffice\PhpWord\Element\Text) {
+                            $text = trim($cellElement->getText()); // 去除空格
+                            if (!empty($text)) {
+                                $currentLine .= $text; // 向当前行添加单词
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($currentLine !== '') {
+            $lines[] = $currentLine; // 将当前行添加到存储文档内容的数组中
+            $currentLine = ''; // 重置当前行
+        }
+    }
+}
+return $lines;
 }
 
-//$docArray=wordread($wordPath);
-//echo json_encode($docArray,JSON_UNESCAPED_UNICODE);
+// $wordArray=wordread($filePath);
+// echo json_encode($wordArray,JSON_UNESCAPED_UNICODE);
 
 ?>
